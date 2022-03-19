@@ -1,0 +1,91 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://assets/ui_theme.tres" type="Theme" id=1]
+[ext_resource path="res://assets/lark.jpeg" type="Texture" id=2]
+[ext_resource path="res://src/UserInterface/Title.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/UserInterface/SceneChangeButton.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/UserInterface/QuitButton.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Credits.tscn" type="PackedScene" id=6]
+[ext_resource path="res://src/Screens/music.gd" type="Script" id=7]
+[ext_resource path="res://assets/Volumeon.png" type="Texture" id=8]
+[ext_resource path="res://assets/Volumeoff.png" type="Texture" id=9]
+[ext_resource path="res://assets/alex-productions-epic-adventure-cinematic-music-movie.mp3" type="AudioStream" id=10]
+
+[node name="MainScreen" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" parent="." instance=ExtResource( 3 )]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -345.0
+margin_top = -106.0
+margin_right = 378.0
+margin_bottom = 507.0
+text = "LARK
+"
+
+[node name="Menu" type="VBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.502
+anchor_right = 0.5
+anchor_bottom = 0.502
+margin_left = -156.0
+margin_top = 298.84
+margin_right = 204.0
+margin_bottom = 452.84
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayButton" parent="Menu" instance=ExtResource( 4 )]
+margin_right = 360.0
+margin_bottom = 73.0
+text = "Play"
+next_scene_path = "res://src/Levels/Level01.tscn"
+
+[node name="QuitButton" parent="Menu" instance=ExtResource( 5 )]
+margin_top = 81.0
+margin_right = 360.0
+margin_bottom = 154.0
+
+[node name="Credits" parent="." instance=ExtResource( 6 )]
+position = Vector2( 22, 957 )
+
+[node name="Node2D" type="Node2D" parent="."]
+script = ExtResource( 7 )
+
+[node name="TextureButton" type="TextureButton" parent="Node2D"]
+margin_left = 149.0
+margin_top = 951.0
+margin_right = 400.0
+margin_bottom = 1214.0
+rect_scale = Vector2( 0.5, 0.5 )
+toggle_mode = true
+texture_normal = ExtResource( 8 )
+texture_pressed = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Node2D"]
+stream = ExtResource( 10 )
+autoplay = true
+
+[connection signal="toggled" from="Node2D/TextureButton" to="Node2D" method="_on_TextureButton_toggled"]
